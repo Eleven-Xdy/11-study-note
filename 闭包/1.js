@@ -1,6 +1,6 @@
 var arr = []
 
-for(let i = 0;i<=5;i++){
+for(var i = 0;i<=5;i++){
     arr.push(function(){
         console.log(i)
     })

@@ -22,7 +22,7 @@ function Car(color){   //准备构造函数,首字母大写
     this.length = 5000
     this.color = color   //批量赋值
     }
-let car1 = new Car('red')
+let car1 = new Car('red')  //car1.__proto__ === Car.prototype
 let car2 = new Car('green')
 let car3 = new Car('pink')
 

@@ -14,3 +14,6 @@ baz()
 //bar函数可以访问foo函数内部的变量age
 //bar函数可以访问foo函数内部的变量height
 //bar函数的作用域是foo函数内部的作用域,而不是全局作用域
+
+//全局上下文baz=undefined  foo=function()
+//执行上下文(foo函数体内)age=18 height=1.8(词法作用域) bar=function()
