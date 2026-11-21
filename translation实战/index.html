@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="app">
+
+  <header class="masthead">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg class="od-icon" style="--od-icon-size:20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6.5h8M8 6.5V4M10.5 6.5c-.6 3.2-2.6 5.7-5.5 7" />
+          <path d="M6 10.5c1.1 1.9 2.7 3.3 4.7 4" />
+          <path d="M13 20l3.6-9 3.6 9M14.4 17h4.4" />
+        </svg>
+      </span>
+      <div class="brand-text">
+        <span class="brand-name">Lingua</span>
+        <span class="brand-sub">翻译工作台</span>
+      </div>
+    </div>
+    <p class="masthead-meta"><span class="meta-dot" aria-hidden="true"></span>演示模式 · 本地词库</p>
+  </header>
+
+  <section class="langbar" aria-label="语言设置">
+    <div class="lang-field">
+      <span id="srcLabel">源语言</span>
+      <div class="select-wrap">
+        <select id="sourceLang" aria-labelledby="srcLabel">
+          <option value="auto" selected>自动检测</option>
+          <option value="中文">简体中文</option>
+          <option value="英语">English</option>
+          <option value="日语">日本語</option>
+          <option value="韩语">한국어</option>
+          <option value="法语">Français</option>
+          <option value="西班牙语">Español</option>
+          <option value="德语">Deutsch</option>
+          <option value="俄语">Русский</option>
+        </select>
+        <svg class="od-icon select-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 4.5 6 8l3.5-3.5" />
+        </svg>
+      </div>
+    </div>
+
+    <button type="button" class="swap" id="swapBtn" aria-label="交换源语言与目标语言" title="交换语言">
+      <svg class="od-icon" style="--od-icon-size:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4" />
+      </svg>
+    </button>
+
+    <div class="lang-field">
+      <span id="tgtLabel">目标语言</span>
+      <div class="select-wrap">
+        <select id="targetLang" aria-labelledby="tgtLabel">
+          <option value="中文">简体中文</option>
+          <option value="英语" selected>English</option>
+          <option value="日语">日本語</option>
+          <option value="韩语">한국어</option>
+          <option value="法语">Français</option>
+          <option value="西班牙语">Español</option>
+          <option value="德语">Deutsch</option>
+          <option value="俄语">Русский</option>
+        </select>
+        <svg class="od-icon select-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2.5 4.5 6 8l3.5-3.5" />
+        </svg>
+      </div>
+    </div>
+
+    <p class="langbar-note">8 种语言 · 支持自动检测</p>
+  </section>
+
+  <main class="board">
+
+    <section class="pane" aria-labelledby="srcHeading">
+      <div class="pane-head">
+        <div class="pane-title">
+          <h2 id="srcHeading">原文</h2>
+          <span class="pane-hint">最多 5000 字</span>
+        </div>
+        <div class="pane-tools">
+          <button type="button" class="text-btn" id="exampleBtn">示例</button>
+          <button type="button" class="text-btn" id="clearBtn">清空</button>
+        </div>
+      </div>
+      <div class="pane-body" id="sourceBody">
+        <textarea id="sourceText" maxlength="5000" spellcheck="false"
+          aria-labelledby="srcHeading"
+          placeholder="在此输入或粘贴需要翻译的内容，右侧会显示译文。"></textarea>
+      </div>
+      <div class="pane-foot">
+        <span class="detected" id="detectedWrap" hidden>
+          <span class="detect-dot" aria-hidden="true"></span>
+          <span id="detectedText"></span>
+        </span>
+        <span class="counter od-nowrap"><span id="charCount">0</span> / 5000</span>
+      </div>
+    </section>
+
+    <section class="pane" aria-labelledby="resHeading">
+      <div class="pane-head">
+        <div class="pane-title">
+          <h2 id="resHeading">译文</h2>
+          <span class="lang-chip" id="targetChip">English</span>
+        </div>
+        <div class="pane-tools">
+          <button type="button" class="text-btn" id="copyBtn" disabled data-copied="false">复制译文</button>
+        </div>
+      </div>
+      <div class="pane-body" style="padding-bottom: 0;">
+        <div class="result-wrap" id="resultWrap" aria-live="polite" aria-busy="false">
+          <div class="empty" id="emptyState">
+            <span class="empty-badge" aria-hidden="true">
+              <svg class="od-icon" style="--od-icon-size:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5.5h7.5v13H4zM12.5 5.5H20v13h-7.5" />
+                <path d="M6.5 9h2.5M6.5 12h2.5M15 9h2.5M15 12h2.5" />
+              </svg>
+            </span>
+            <p class="empty-title">译文会出现在这里</p>
+            <p class="empty-text">在左侧输入内容并选择语言，点击「翻译」即可看到结果。</p>
+          </div>
+          <div class="skeleton" id="loadingState" hidden aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <p class="result-text" id="resultText" hidden></p>
+        </div>
+      </div>
+      <div class="pane-foot">
+        <span id="resultMeta">等待翻译</span>
+        <span class="od-nowrap">本地词库生成</span>
+      </div>
+    </section>
+
+  </main>
+
+  <p class="alert" id="alertMsg" role="alert" hidden>
+    <svg class="od-icon" style="--od-icon-size:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5v6M12 16.5h.01" />
+    </svg>
+    <span id="alertText"></span>
+  </p>
+
+  <div class="actions">
+    <button type="button" class="btn-primary" id="translateBtn">
+      翻译
+      <svg class="od-icon" style="--od-icon-size:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12h15M13.5 6l6 6-6 6" />
+      </svg>
+    </button>
+    <p class="hint">按 <kbd>Ctrl</kbd><span aria-hidden="true">+</span><kbd>Enter</kbd> 快速翻译</p>
+  </div>
+
+  <section class="exam" aria-labelledby="examHeading">
+    <div class="exam-head">
+      
+</div>
+          <script src="./index.js"></script>
+</body>
+
+</html>
