@@ -1,0 +1,23 @@
+#类型
+1.原始类型 string number boolean null undefind symbol bright
+2.引用类型 function array object date
+
+#typeof判断
+1.typeof可以准确判断除了null之外的所有原始类型,他的判断原理是根据变量的值来判断的转换为
+他的判断原理是,判断前三位是否为零,原始类型为零,引用类型为非零object
+2.typeof判断引用类型时,返回object
+原始特例:null是一串零,所以typeof null为object
+引用特例:function是一串非零,所以typeof function为function
+
+#instanceof判断
+a instanceof b判断a是否是b的实例对象,返回值为boolean类型
+判断原理:通过隐式原型链来判断a是否是b的实例对象,如果a的隐式原型等于b的显式原型,则返回true a.__proto__===b.prototype
+如果不等就顺着隐式原型链往上找  a.__proto__.__proto__===b.prototype
+直到找到null还没有找到,则返回false a.__proto__===null
+
+#Object.prototype.toString.call(x).slice(8,13)判断类型
+判断原理:通过判断x的[[Class]]属性,返回值为字符串
+判断类型:判断x的[[Class]]属性是否为[object Array],如果是,则返回数组,如果不是,则返回其他类型
+
+#Array.isArray(x)
+专门用来判断一个值是否为数组,返回值为boolean类型
